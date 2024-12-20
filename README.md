@@ -15,8 +15,6 @@ with:
   algorithm: sha256 # Optional. See bun.sh/docs/api/hashing#bun-cryptohasher for supported algorithms
 ```
 
-Each row separated by tab. (`\t`)
-
 You must enable write permission in github.com/user/repo/settings/actions -> Workflow permissions -> Read and write permissions.
 
 ## Inputs
@@ -38,6 +36,8 @@ You must enable write permission in github.com/user/repo/settings/actions -> Wor
 a.txt	ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb
 b.txt	0263829989b6fd954f72baaf2fc64bc2e2f01d692d4de72986ea808f6e99813f
 ```
+
+Each row separated by tab. (`\t`)
 
 ## Full example
 
