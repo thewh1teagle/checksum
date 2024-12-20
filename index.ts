@@ -41,7 +41,7 @@ function parsePatternsInput(patternsInput: string): string[] {
 
 async function downloadAsset(asset: Asset): Promise<void> {
   console.log(`Downloading ${asset.name}...`);
-  await $`wget ${asset.url} -O ${asset.name}`;
+  await $`wget --progress=bar:force:noscroll ${asset.url} -O ${asset.name}`;
 }
 
 async function generateChecksum(assetName: string): Promise<string> {
