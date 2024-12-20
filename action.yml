@@ -1,0 +1,60 @@
+name: "Checksums Action"
+author: thewh1teagle
+branding:
+  icon: 'check-circle'  # Optional, you can add a custom icon
+  color: 'blue'
+description: "A reusable action to create checksum.txt"
+
+inputs:
+  bun-version:
+    description: "The version of Bun to use"
+    required: false
+    default: "latest"
+  repo:
+    description: "The GitHub repository (owner/repo)"
+    required: false
+  patterns:
+    description: "Patterns for the files to run checksum on"
+    required: false
+    default: ""
+  algorithm:
+    description: "Hash algorithm to use. default to sha256. See https://bun.sh/docs/api/hashing#bun-cryptohasher"
+    required: false
+    default: "sha256"
+  pre-release:
+    description: "Run on pre release"
+    required: false
+    default: 'false'
+  tag:
+    description: "Tag of the release"
+    required: false
+    default: ''
+  file-name:
+    description: "File name of the checksum file"
+    required: false
+    default: 'checksum.txt'
+  dry-run:
+    description: "Create checksum without upload. will be available in the output of the action run"
+    required: false
+    default: 'false'
+
+runs:
+  using: "composite"
+  steps:
+    - uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: ${{ inputs.bun-version }}
+
+    - name: Create checksum.txt
+      run: bun run "${GITHUB_ACTION_PATH}/index.ts"
+      shell: bash
+      # env: ${{ toJson(vars) }}
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+        INPUT_PATTERNS: ${{ inputs.patterns }}
+        INPUT_ALGORITHM: ${{ inputs.algorithm }}
+        INPUT_TAG: ${{ inputs.tag }}
+        INPUT_FILE_NAME: ${{ inputs.file-name }}
+        INPUT_PRE_RELEASE: ${{ inputs.pre-release }}
+        INPUT_REPO: ${{ inputs.repo }}
+        INPUT_DRY_RUN: ${{ inputs.dry-run }}
