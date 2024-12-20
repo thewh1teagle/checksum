@@ -48,7 +48,6 @@ runs:
     - name: Create checksum.txt
       run: bun run "${GITHUB_ACTION_PATH}/index.ts"
       shell: bash
-      # env: ${{ toJson(vars) }}
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
         INPUT_PATTERNS: ${{ inputs.patterns }}
