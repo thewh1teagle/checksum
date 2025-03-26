@@ -7,7 +7,7 @@ This action calculates the checksum (e.g., SHA-256) for all assets in your GitHu
 Include in your workflow file:
 
 ```yml
-uses: thewh1teagle/checksum@v1
+uses: thewh1teagle/checksum@v2
 with:
   patterns: | # Optional
     *.zip
@@ -59,7 +59,7 @@ jobs:
 
     steps:
       - name: Run checksum action
-        uses: thewh1teagle/checksum@v1
+        uses: thewh1teagle/checksum@v2
         with:
           patterns: | # Optional
             *.zip
