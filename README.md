@@ -30,6 +30,7 @@ You must enable write permission in github.com/user/repo/settings/actions -> Wor
 | `dry-run`      | Run without upload. will be available in the console output of the action.                                                      | No           | `checksum.txt`   |
 | `bun-version`  | The version of Bun to use.                                                                                                      | No           | `latest`         |
 | `reverse-order`| If set to true the order of checksum and filename in the output file will be reversed.                                          | No           | `false`          |
+| `separator`    | Separator between filename and checksum. If you want to use special chars you can pass something like `${{ fromJSON('"\n"') }}` | No           | `\t`             |
 
 ## Example checksum.txt
 
@@ -38,7 +39,7 @@ a.txt	ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb
 b.txt	0263829989b6fd954f72baaf2fc64bc2e2f01d692d4de72986ea808f6e99813f
 ```
 
-Each line separated by tab. (`\t`)
+Each line separated by the specified separator. (By default `\t`)
 
 ## Full example
 

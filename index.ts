@@ -120,6 +120,7 @@ const minSizeImmediateUpload = 1000 * 1000 * 500; // 500MB
 const isDryRun = process.env.INPUT_DRY_RUN === 'true'
 const isPreRelease = process.env.INPUT_PRE_RELEASE === "true";
 const isReverseOrder = process.env.INPUT_REVERSE_ORDER === "true";
+const separator = process.env.INPUT_SEPARATOR || "\t";
 
 // Algorithm
 const hashAlgorithm = process.env.INPUT_ALGORITHM || "sha256";
@@ -178,9 +179,9 @@ for (const asset of releases.assets) {
   const checksum = await generateChecksum(asset.name);
   await unlink(asset.name); // Remove file immediately after get checksum
   if (isReverseOrder) {
-    await appendFile(checkSumPath, `${checksum}\t${asset.name}\n`);
+    await appendFile(checkSumPath, `${checksum}${separator}${asset.name}\n`);
   } else {
-    await appendFile(checkSumPath, `${asset.name}\t${checksum}\n`);
+    await appendFile(checkSumPath, `${asset.name}${separator}${checksum}\n`);
   }
 
   if (asset.size > minSizeImmediateUpload) {

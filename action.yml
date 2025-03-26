@@ -41,6 +41,9 @@ inputs:
     description: "Reverse the order of the filename and checksum"
     required: false
     default: 'false'
+  separator:
+    description: "Separator between filename and checksum"
+    required: false
 
 runs:
   using: "composite"
