@@ -37,6 +37,10 @@ inputs:
     description: "Create checksum without upload. will be available in the output of the action run"
     required: false
     default: 'false'
+  reverse-order:
+    description: "Reverse the order of the filename and checksum"
+    required: false
+    default: 'false'
 
 runs:
   using: "composite"
@@ -57,3 +61,4 @@ runs:
         INPUT_PRE_RELEASE: ${{ inputs.pre-release }}
         INPUT_REPO: ${{ inputs.repo }}
         INPUT_DRY_RUN: ${{ inputs.dry-run }}
+        INPUT_REVERSE_ORDER: ${{ inputs.reverse-order }}

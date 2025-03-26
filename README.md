@@ -29,6 +29,7 @@ You must enable write permission in github.com/user/repo/settings/actions -> Wor
 | `file-name`    | The name of the checksum file to generate.                                                                                      | No           | `checksum.txt`   |
 | `dry-run`      | Run without upload. will be available in the console output of the action.                                                      | No           | `checksum.txt`   |
 | `bun-version`  | The version of Bun to use.                                                                                                      | No           | `latest`         |
+| `reverse-order`| If set to true the order of checksum and filename in the output file will be reversed.                                          | No           | `false`          |
 
 ## Example checksum.txt
 
