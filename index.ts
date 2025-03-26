@@ -16,6 +16,7 @@ interface Asset {
   state: string;
   updatedAt: string;
   url: string;
+  browser_download_url: string;
 }
 
 async function getReleaseNoAuth(repo: string, tag: string) {
@@ -41,7 +42,8 @@ function parsePatternsInput(patternsInput: string): string[] {
 
 async function downloadAsset(asset: Asset): Promise<void> {
   console.log(`Downloading ${asset.name}...`);
-  await $`wget --progress=bar:force:noscroll ${asset.url} -O ${asset.name}`;
+  const url = isDryRun ? asset.browser_download_url : asset.url;
+  await $`wget --progress=bar:force:noscroll ${url} -O ${asset.name}`;
 }
 
 async function generateChecksum(assetName: string): Promise<string> {
