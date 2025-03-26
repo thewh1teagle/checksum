@@ -112,12 +112,15 @@ console.log(`Repo: ${process.env.INPUT_REPO}`);
 console.log(`Tag Input: ${process.env.INPUT_TAG}`);
 console.log(`Patterns Input: ${process.env.INPUT_PATTERNS}`);
 console.log(`Dry Run: ${process.env.INPUT_DRY_RUN}`);
+console.log(`Reverse Order: ${process.env.INPUT_REVERSE_ORDER}`);
 
 // Constants
 const checkSumPath = process.env.INPUT_FILE_NAME!; // checksum.txt by default
 const minSizeImmediateUpload = 1000 * 1000 * 500; // 500MB
 const isDryRun = process.env.INPUT_DRY_RUN === 'true'
 const isPreRelease = process.env.INPUT_PRE_RELEASE === "true";
+const isReverseOrder = process.env.INPUT_REVERSE_ORDER === "true";
+const separator = process.env.INPUT_SEPARATOR || "\t";
 
 // Algorithm
 const hashAlgorithm = process.env.INPUT_ALGORITHM || "sha256";
@@ -175,7 +178,11 @@ for (const asset of releases.assets) {
 
   const checksum = await generateChecksum(asset.name);
   await unlink(asset.name); // Remove file immediately after get checksum
-  await appendFile(checkSumPath, `${asset.name}\t${checksum}\n`);
+  if (isReverseOrder) {
+    await appendFile(checkSumPath, `${checksum}${separator}${asset.name}\n`);
+  } else {
+    await appendFile(checkSumPath, `${asset.name}${separator}${checksum}\n`);
+  }
 
   if (asset.size > minSizeImmediateUpload) {
     console.log(`Uploading immdiately due to large file: ${asset.name}`);
